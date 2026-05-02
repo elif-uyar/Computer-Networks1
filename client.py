@@ -1,4 +1,3 @@
-
 import sys
 import random
 from PyQt5.QtWidgets import (
@@ -157,6 +156,142 @@ class DiceWidget(QLabel):
 # ─────────────────────────────────────────
 #  BAŞLANGIÇ EKRANI
 # ─────────────────────────────────────────
+
+
+# ─────────────────────────────────────────
+#  KURALLAR PENCERESİ
+# ─────────────────────────────────────────
+
+class RulesWindow(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Yahtzee Kurallari")
+        self.setFixedSize(700, 680)
+        self.setStyleSheet(STYLE)
+        self._build()
+
+    def _build(self):
+        root = QVBoxLayout(self)
+        root.setContentsMargins(24,20,24,20); root.setSpacing(14)
+
+        title = QLabel("YAHTZEE KURALLARI")
+        title.setAlignment(Qt.AlignCenter)
+        title.setStyleSheet(f"font-size:22px;font-weight:bold;color:{GOLD};border:none;")
+        root.addWidget(title)
+
+        scroll = QScrollArea(); scroll.setWidgetResizable(True)
+        scroll.setStyleSheet("border:none;")
+        container = QWidget()
+        cl = QVBoxLayout(container); cl.setSpacing(16); cl.setContentsMargins(4,4,4,4)
+
+        cl.addWidget(self._stitle("Oyunun Amaci"))
+        cl.addWidget(self._text("13 tur boyunca zar atarak kategorileri doldurun. En yuksek toplam puani alan oyuncu kazanir."))
+
+        cl.addWidget(self._stitle("Zar Atma"))
+        for item in [
+            "Her turda en fazla 3 kez zar atabilirsiniz.",
+            "1. atista tum 5 zar atilir.",
+            "2. ve 3. atislarda tutmak istediginiz zarlari tiklayin (sari = tutuldu), kalanlari yeniden atin.",
+            "Istediginiz zaman atisi durdurup kategori secebilirsiniz.",
+        ]:
+            cl.addWidget(self._bullet(item))
+
+        cl.addWidget(self._stitle("Ust Bolum (Upper Section)"))
+        cl.addWidget(self._text("Sadece ilgili sayidaki zarlari toplarsiniz."))
+
+        upper_table = QTableWidget(6, 3)
+        upper_table.setHorizontalHeaderLabels(["Kategori","Kural","Ornek"])
+        upper_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Fixed)
+        upper_table.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
+        upper_table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Fixed)
+        upper_table.setColumnWidth(0,120); upper_table.setColumnWidth(2,160)
+        upper_table.verticalHeader().setVisible(False)
+        upper_table.setEditTriggers(QTableWidget.NoEditTriggers)
+        upper_table.setSelectionMode(QTableWidget.NoSelection)
+        upper_table.setFixedHeight(168)
+        for i,(cat,rule,ex) in enumerate([
+            ("Ones (1ler)","Tum 1leri topla","[1,1,3,4,1] -> 3"),
+            ("Twos (2ler)","Tum 2leri topla","[2,2,5,2,1] -> 6"),
+            ("Threes (3ler)","Tum 3leri topla","[3,1,3,2,6] -> 6"),
+            ("Fours (4ler)","Tum 4leri topla","[4,4,4,2,1] -> 12"),
+            ("Fives (5ler)","Tum 5leri topla","[5,5,1,2,3] -> 10"),
+            ("Sixes (6lar)","Tum 6lari topla","[6,6,6,1,2] -> 18"),
+        ]):
+            upper_table.setItem(i,0,self._ti(cat,"#ccc"))
+            upper_table.setItem(i,1,self._ti(rule,"#aaa"))
+            upper_table.setItem(i,2,self._ti(ex,GREEN))
+            upper_table.setRowHeight(i,26)
+        cl.addWidget(upper_table)
+
+        bonus_lbl = QLabel("Ust bolum toplami >= 63 olursa +35 Bonus puan! (Her kategoriye ortalama 3 ayni zar yeterli)")
+        bonus_lbl.setWordWrap(True)
+        bonus_lbl.setStyleSheet(f"font-size:12px;color:{GOLD};border:1px solid {GOLD};border-radius:6px;padding:8px;")
+        cl.addWidget(bonus_lbl)
+
+        cl.addWidget(self._stitle("Alt Bolum (Lower Section)"))
+        lower_table = QTableWidget(7, 3)
+        lower_table.setHorizontalHeaderLabels(["Kategori","Kural","Puan"])
+        lower_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Fixed)
+        lower_table.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
+        lower_table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Fixed)
+        lower_table.setColumnWidth(0,140); lower_table.setColumnWidth(2,140)
+        lower_table.verticalHeader().setVisible(False)
+        lower_table.setEditTriggers(QTableWidget.NoEditTriggers)
+        lower_table.setSelectionMode(QTableWidget.NoSelection)
+        lower_table.setFixedHeight(196)
+        for i,(cat,rule,pts) in enumerate([
+            ("Three of a Kind","En az 3 ayni zar","Tum zarlarin toplami"),
+            ("Four of a Kind","En az 4 ayni zar","Tum zarlarin toplami"),
+            ("Full House","3 ayni + 2 ayni","Sabit 25 puan"),
+            ("Small Straight","4 ardisik sayi","Sabit 30 puan"),
+            ("Large Straight","5 ardisik sayi","Sabit 40 puan"),
+            ("YAHTZEE!","5 zarin hepsi ayni","Sabit 50 puan"),
+            ("Chance","Herhangi kombinasyon","Tum zarlarin toplami"),
+        ]):
+            lower_table.setItem(i,0,self._ti(cat,"#ccc"))
+            lower_table.setItem(i,1,self._ti(rule,"#aaa"))
+            lower_table.setItem(i,2,self._ti(pts,GOLD))
+            lower_table.setRowHeight(i,26)
+        cl.addWidget(lower_table)
+
+        cl.addWidget(self._stitle("Onemli Kurallar"))
+        for item in [
+            "Her kategori yalnizca bir kez doldurulabilir.",
+            "Uygun kombinasyon olmasa bile bir kategoriyi 0 yazarak kapatabilirsiniz.",
+            "Sira disinda oynamak yasaktir.",
+            "Ikinci bir YAHTZEE yaparsaniz +100 bonus puan kazanirsiniz!",
+            "Oyun 13 tur sonunda sona erer.",
+        ]:
+            cl.addWidget(self._bullet(item))
+
+        cl.addStretch()
+        scroll.setWidget(container)
+        root.addWidget(scroll)
+
+        close_btn = QPushButton("Kapat")
+        close_btn.setFixedHeight(40); close_btn.setFixedWidth(120)
+        close_btn.clicked.connect(self.close)
+        root.addWidget(close_btn, alignment=Qt.AlignCenter)
+
+    def _stitle(self, text):
+        l = QLabel(text)
+        l.setStyleSheet(f"font-size:14px;font-weight:bold;color:{GOLD};border:none;margin-top:4px;")
+        return l
+
+    def _text(self, text):
+        l = QLabel(text); l.setWordWrap(True)
+        l.setStyleSheet("font-size:12px;color:#ccc;border:none;")
+        return l
+
+    def _bullet(self, text):
+        l = QLabel(f"  -  {text}"); l.setWordWrap(True)
+        l.setStyleSheet("font-size:12px;color:#ccc;border:none;")
+        return l
+
+    def _ti(self, text, color):
+        it = QTableWidgetItem(text)
+        it.setForeground(QColor(color))
+        return it
 
 class StartScreen(QWidget):
     connect_requested = pyqtSignal(str, int, str)
@@ -426,6 +561,18 @@ class GameScreen(QWidget):
         self.info_label.setAlignment(Qt.AlignCenter)
         self.info_label.setStyleSheet(f"color:{RED};font-size:13px;border:none;")
         ml.addWidget(self.info_label)
+
+        rules_btn = QPushButton("Kurallari Goster")
+        rules_btn.setFixedHeight(32)
+        rules_btn.setFixedWidth(160)
+        rules_btn.setStyleSheet(f"""
+            QPushButton{{background:transparent;color:{GOLD};border:1px solid {GOLD};
+            border-radius:6px;font-size:12px;}}
+            QPushButton:hover{{background:{GOLD};color:#1a1a2e;}}
+        """)
+        rules_btn.clicked.connect(self._show_rules)
+        ml.addWidget(rules_btn, alignment=Qt.AlignCenter)
+
         root.addWidget(mid, stretch=1)
 
         # ── Sağ: Kategoriler ──────────────────────
@@ -570,6 +717,10 @@ class GameScreen(QWidget):
                 btn.setStyleSheet(f"background:{DARK};color:#777;border:1px solid #333;border-radius:6px;padding:4px;")
 
         self.info_label.setText("")
+
+    def _show_rules(self):
+        self._rules_win = RulesWindow()
+        self._rules_win.show()
 
     def show_error(self, msg):
         self.info_label.setText(f"⚠️  {msg}")
@@ -835,12 +986,17 @@ class MainWindow(QMainWindow):
         self.game_screen.net = self.net; self._show_start()
 
     def _on_opponent_disconnected(self, msg):
-        QMessageBox.information(self, "Bilgi", msg)
-        self.net.disconnect()
-        self.net = NetworkClient()
-        self._connect_signals()
-        self.game_screen.net = self.net
-        self._show_start()
+        if self.stack.currentIndex() == 2:
+            self.game_screen.show_opponent_disconnected(msg)
+        elif self.stack.currentIndex() == 3:  # End screen'de rakip çıkınca başlangıç ekranına dön
+            QMessageBox.information(self, "Bilgi", msg)
+            self.net.disconnect()
+            self.net = NetworkClient()
+            self._connect_signals()
+            self.game_screen.net = self.net
+            self._show_start()
+        else:
+            QMessageBox.information(self, "Bilgi", msg)
 
     def _on_rematch(self):        self.stack.setCurrentIndex(2)
     def _on_rematch_btn(self):    self.net.send_rematch()
@@ -851,4 +1007,3 @@ if __name__ == "__main__":
     app.setStyle("Fusion")
     win = MainWindow(); win.show()
     sys.exit(app.exec_())
-
