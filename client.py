@@ -1,3 +1,8 @@
+"""
+CLIENT.PY — Yahtzee PyQt5 istemci uygulaması.
+Yenilikler: Zar animasyonu, oyuncu avatarı, tur sayacı, rakip çıkınca bildirim
+"""
+
 import sys
 import random
 from PyQt5.QtWidgets import (
@@ -981,7 +986,10 @@ class MainWindow(QMainWindow):
             self.start_screen.reset(); self._show_start()
 
     def _on_disconnect(self):
-        QMessageBox.warning(self, "Bağlantı Kesildi", "Sunucu bağlantısı kesildi.")
+        # Rakip zaten ayrıldıysa bu bildirimi gösterme
+        if self.net._opponent_disconnected:
+            return
+        QMessageBox.warning(self, "Baglanti Kesildi", "Sunucu baglantisi kesildi.")
         self.net = NetworkClient(); self._connect_signals()
         self.game_screen.net = self.net; self._show_start()
 
@@ -992,8 +1000,6 @@ class MainWindow(QMainWindow):
         self._connect_signals()
         self.game_screen.net = self.net
         self._show_start()
-        
-        
 
     def _on_rematch(self):        self.stack.setCurrentIndex(2)
     def _on_rematch_btn(self):    self.net.send_rematch()
