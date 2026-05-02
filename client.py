@@ -986,17 +986,14 @@ class MainWindow(QMainWindow):
         self.game_screen.net = self.net; self._show_start()
 
     def _on_opponent_disconnected(self, msg):
-        if self.stack.currentIndex() == 2:
-            self.game_screen.show_opponent_disconnected(msg)
-        elif self.stack.currentIndex() == 3:  # End screen'de rakip çıkınca başlangıç ekranına dön
-            QMessageBox.information(self, "Bilgi", msg)
-            self.net.disconnect()
-            self.net = NetworkClient()
-            self._connect_signals()
-            self.game_screen.net = self.net
-            self._show_start()
-        else:
-            QMessageBox.information(self, "Bilgi", msg)
+        QMessageBox.information(self, "Bilgi", msg)
+        self.net.disconnect()
+        self.net = NetworkClient()
+        self._connect_signals()
+        self.game_screen.net = self.net
+        self._show_start()
+        
+        
 
     def _on_rematch(self):        self.stack.setCurrentIndex(2)
     def _on_rematch_btn(self):    self.net.send_rematch()
