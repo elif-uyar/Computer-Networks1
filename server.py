@@ -108,6 +108,9 @@ class GameRoom:
                     self.send_to(player_index, {"type":"error","message":result})
 
             elif action == "rematch":
+                if not all(self.active):
+                    self.send_to(player_index, {"type":"error","message":"Rakip oyundan ayrıldı. Tekrar oynayamazsınız."})
+                    return
                 state.reset()
                 self.active = [True, True]
                 self.broadcast({"type":"rematch_start"})
