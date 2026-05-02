@@ -4,6 +4,9 @@ import random
 #  YARDIMCI FONKSİYONLAR
 # ─────────────────────────────────────────
 
+
+ #deneme yapıyorummm
+
 def roll_dice(current_dice, keep_indices):
     new_dice = []
     for i in range(5):
