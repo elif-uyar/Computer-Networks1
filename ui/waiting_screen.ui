@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WaitingScreen</class>
+ <widget class="QWidget" name="WaitingScreen">
+  <property name="windowTitle">
+   <string>Bekleniyor</string>
+  </property>
+  <layout class="QVBoxLayout" name="layout">
+   <property name="spacing">
+    <number>16</number>
+   </property>
+   <item>
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size><width>20</width><height>40</height></size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="waitLabel">
+     <property name="text">
+      <string>⏳  İkinci oyuncu bekleniyor...</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="hintLabel">
+     <property name="text">
+      <string>Arkadaşınızın sunucuya bağlanması yeterli.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="dots">
+     <property name="text">
+      <string>●  ●  ●</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size><width>20</width><height>40</height></size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+</ui>

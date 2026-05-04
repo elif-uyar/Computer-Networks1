@@ -1,0 +1,402 @@
+/* ─────────────────────────────────────────
+   YAHTZEE OYUNU - GLOBAL STİLLER
+   ───────────────────────────────────────── */
+
+/* RENKLER */
+QMainWindow, QWidget {
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* BUTONLAR */
+QPushButton {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 2px solid #0f3460;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+QPushButton:hover {
+    background-color: #0f3460;
+    border-color: #e94560;
+}
+
+QPushButton:pressed {
+    background-color: #e94560;
+}
+
+QPushButton:disabled {
+    background-color: #111;
+    color: #555;
+    border-color: #333;
+}
+
+/* GİRİŞ ALANLAR */
+QLineEdit {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 2px solid #0f3460;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border-color: #e94560;
+}
+
+/* ETİKETLER */
+QLabel {
+    color: #e0e0e0;
+}
+
+/* ÇERÇEVELER */
+QFrame {
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+}
+
+/* TABLOLAR */
+QTableWidget {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 1px solid #0f3460;
+    gridline-color: #0f3460;
+    font-size: 12px;
+}
+
+QHeaderView::section {
+    background-color: #0f3460;
+    color: #f5a623;
+    padding: 4px;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+QTableWidget::item:selected {
+    background-color: #0f3460;
+}
+
+/* KAYDIRMA ALANLAR */
+QScrollArea {
+    border: none;
+}
+
+QScrollBar:vertical {
+    background-color: #16213e;
+    width: 12px;
+    border: none;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #0f3460;
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #e94560;
+}
+
+/* ─────────────────────────────────────────
+   BAŞLANGIÇ EKRANI
+   ───────────────────────────────────────── */
+
+#titleLabel {
+    font-size: 54px;
+    font-weight: bold;
+    color: #e94560;
+    border: none;
+}
+
+#taglineLabel {
+    font-size: 15px;
+    color: #aaa;
+    border: none;
+}
+
+#rulesFrame {
+    background-color: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 12px;
+}
+
+#rulesTitleLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: #f5a623;
+    border: none;
+}
+
+#cardFrame {
+    background-color: #16213e;
+    border: 2px solid #0f3460;
+    border-radius: 16px;
+}
+
+#cardTitleLabel {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f5a623;
+    border: none;
+}
+
+#nameLbl, #hostLbl, #portLbl {
+    font-size: 12px;
+    color: #aaa;
+    border: none;
+}
+
+#connect_btn {
+    background-color: #e94560;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 8px 16px;
+}
+
+#connect_btn:hover {
+    background-color: #c0392b;
+}
+
+#status_label {
+    color: #f5a623;
+    border: none;
+    font-size: 12px;
+}
+
+/* ─────────────────────────────────────────
+   BEKLEME EKRANI
+   ───────────────────────────────────────── */
+
+#waitLabel {
+    font-size: 22px;
+    color: #f5a623;
+    border: none;
+}
+
+#hintLabel {
+    font-size: 14px;
+    color: #aaa;
+    border: none;
+}
+
+#dots {
+    font-size: 20px;
+    color: #0f3460;
+    border: none;
+}
+
+/* ─────────────────────────────────────────
+   OYUN EKRANI
+   ───────────────────────────────────────── */
+
+#scoreTitleLabel, #catTitleLabel {
+    font-size: 13px;
+    font-weight: bold;
+    color: #f5a623;
+    border: none;
+}
+
+#bonus_label {
+    font-size: 11px;
+    color: #aaa;
+    border: none;
+}
+
+#turn_label {
+    font-size: 17px;
+    font-weight: bold;
+    color: #f5a623;
+    border: none;
+}
+
+#rolls_label {
+    font-size: 13px;
+    color: #aaa;
+    border: none;
+}
+
+#hold_hint {
+    font-size: 11px;
+    color: #555;
+    border: none;
+}
+
+#info_label {
+    color: #e94560;
+    font-size: 13px;
+    border: none;
+}
+
+#name_my {
+    font-size: 12px;
+    color: #27ae60;
+    border: none;
+    font-weight: bold;
+}
+
+#name_opp {
+    font-size: 12px;
+    color: #aaa;
+    border: none;
+}
+
+#turn_badge {
+    background-color: #0f3460;
+    color: #f5a623;
+    border: 2px solid #f5a623;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px;
+}
+
+#roll_btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 8px 16px;
+}
+
+#roll_btn:hover {
+    background-color: #1e8449;
+}
+
+#roll_btn:disabled {
+    background-color: #2a2a2a;
+    color: #555;
+    border: none;
+}
+
+#rules_btn {
+    background-color: transparent;
+    color: #f5a623;
+    border: 1px solid #f5a623;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+#rules_btn:hover {
+    background-color: #f5a623;
+    color: #1a1a2e;
+}
+
+#catScrollArea {
+    border: none;
+}
+
+#avatar_my, #avatar_opp {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border-radius: 21px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#scoreTable {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 1px solid #0f3460;
+    gridline-color: #0f3460;
+    font-size: 12px;
+}
+
+/* ─────────────────────────────────────────
+   BİTİŞ EKRANI
+   ───────────────────────────────────────── */
+
+#result_label {
+    font-size: 38px;
+    font-weight: bold;
+    color: #f5a623;
+    border: none;
+}
+
+#vsLabel {
+    font-size: 20px;
+    color: #555;
+    border: none;
+}
+
+#end_name0, #end_name1 {
+    font-size: 13px;
+    color: #aaa;
+    border: none;
+}
+
+#end_score0, #end_score1 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #27ae60;
+    border: none;
+}
+
+#rematch_status {
+    font-size: 13px;
+    color: #f5a623;
+    border: none;
+}
+
+#rematch_btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+}
+
+#rematch_btn:hover {
+    background-color: #1e8449;
+}
+
+#rematch_btn:disabled {
+    background-color: #333;
+    color: #666;
+    border: none;
+}
+
+#end_avatar0, #end_avatar1 {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border-radius: 26px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#detail_table {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 1px solid #0f3460;
+    gridline-color: #0f3460;
+    font-size: 12px;
+}
+
+/* ─────────────────────────────────────────
+   KURALLAR PENCERESİ
+   ───────────────────────────────────────── */
+
+#titleLabel {
+    font-size: 22px;
+    font-weight: bold;
+    color: #f5a623;
+    border: none;
+}
+
+#scrollContents {
+    background-color: transparent;
+}
+
