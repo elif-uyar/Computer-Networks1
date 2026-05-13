@@ -1,7 +1,3 @@
-"""
-CLIENT.PY — Yahtzee PyQt5 istemci uygulaması.
-UI tanımları ui/ klasöründeki .ui dosyalarından yüklenir.
-"""
 
 import sys
 import os
@@ -18,9 +14,8 @@ from network import NetworkClient
 from game_logic import ALL_CATEGORIES, CATEGORY_DISPLAY_NAMES, calculate_score
 from widgets import DiceWidget
 
-# ─────────────────────────────────────────
+
 #  YARDIMCILAR
-# ─────────────────────────────────────────
 
 _UI_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ui")
 _STYLES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "styles.qss")
@@ -45,9 +40,7 @@ GREEN = "#27ae60"
 DARK  = "#16213e"
 
 
-# ─────────────────────────────────────────
 #  KURALLAR PENCERESİ
-# ─────────────────────────────────────────
 
 class RulesWindow(QWidget):
     def __init__(self, parent=None):
@@ -175,9 +168,7 @@ class RulesWindow(QWidget):
         )
 
 
-# ─────────────────────────────────────────
 #  BAŞLANGIÇ EKRANI
-# ─────────────────────────────────────────
 
 class StartScreen(QWidget):
     connect_requested = pyqtSignal(str, int, str)
@@ -231,9 +222,7 @@ class StartScreen(QWidget):
         self.status_label.setText("")
 
 
-# ─────────────────────────────────────────
 #  BEKLEME EKRANI
-# ─────────────────────────────────────────
 
 class WaitingScreen(QWidget):
     def __init__(self):
@@ -250,9 +239,7 @@ class WaitingScreen(QWidget):
         self.dots.setText(["●  ○  ○", "○  ●  ○", "○  ○  ●"][self._ds])
 
 
-# ─────────────────────────────────────────
 #  OYUN EKRANI
-# ─────────────────────────────────────────
 
 class GameScreen(QWidget):
     def __init__(self, net):
@@ -480,9 +467,7 @@ class GameScreen(QWidget):
             btn.setEnabled(False)
 
 
-# ─────────────────────────────────────────
 #  BİTİŞ EKRANI
-# ─────────────────────────────────────────
 
 class EndScreen(QWidget):
     rematch_requested = pyqtSignal()
@@ -590,9 +575,7 @@ class EndScreen(QWidget):
         self.rematch_btn.setText("✅  Kabul Et")
 
 
-# ─────────────────────────────────────────
 #  ANA PENCERE
-# ─────────────────────────────────────────
 
 class MainWindow(QMainWindow):
     def __init__(self):

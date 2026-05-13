@@ -1,8 +1,6 @@
 import random
 
-# ─────────────────────────────────────────
 #  YARDIMCI FONKSİYONLAR
-# ─────────────────────────────────────────
 
 def roll_dice(current_dice, keep_indices):
     new_dice = []
@@ -17,9 +15,7 @@ def initial_roll():
     return roll_dice([0, 0, 0, 0, 0], [])
 
 
-# ─────────────────────────────────────────
 #  PUAN HESAPLAMA
-# ─────────────────────────────────────────
 
 def calculate_score(category, dice):
     counts = [dice.count(i) for i in range(7)]
@@ -63,9 +59,7 @@ def calculate_total(scores, yahtzee_bonus=0):
     return total + bonus + yahtzee_bonus
 
 
-# ─────────────────────────────────────────
 #  KATEGORİ LİSTESİ
-# ─────────────────────────────────────────
 
 ALL_CATEGORIES = [
     "ones","twos","threes","fours","fives","sixes",
@@ -90,9 +84,7 @@ CATEGORY_DISPLAY_NAMES = {
 }
 
 
-# ─────────────────────────────────────────
 #  OYUN DURUMU
-# ─────────────────────────────────────────
 
 class GameState:
 

@@ -1,6 +1,3 @@
-"""
-NETWORK.PY — İstemci tarafı ağ katmanı.
-"""
 
 import socket
 import json
@@ -91,7 +88,6 @@ class NetworkClient(QObject):
                         self._dispatch(msg)
                     except json.JSONDecodeError:
                         pass
-                # Rakip ayrıldıysa döngüden çık, signal_disconnected emit etme
                 if opponent_left:
                     return
         except Exception:

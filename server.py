@@ -1,7 +1,3 @@
-"""
-YAHTZEE SERVER — AWS'de çalışacak konsol uygulaması.
-Çalıştırma: python server.py  |  python server.py --port 5555
-"""
 
 import socket
 import threading
@@ -15,9 +11,7 @@ DEFAULT_PORT = 5555
 BUFFER_SIZE  = 4096
 
 
-# ─────────────────────────────────────────
 #  MESAJ YARDIMCILARI
-# ─────────────────────────────────────────
 
 def send_msg(conn, data: dict):
     try:
@@ -40,9 +34,7 @@ def recv_msg(conn):
         return None
 
 
-# ─────────────────────────────────────────
 #  OYUN ODASI
-# ─────────────────────────────────────────
 
 class GameRoom:
 
@@ -147,9 +139,7 @@ class GameRoom:
         print(f"[ROOM {self.room_id}] Oyun bitti. Kazanan: {winner_name} ({totals[0]}-{totals[1]})")
 
 
-# ─────────────────────────────────────────
 #  OYUNCU THREAD
-# ─────────────────────────────────────────
 
 def player_thread(room: GameRoom, player_index: int):
     conn = room.players[player_index]
@@ -170,9 +160,7 @@ def player_thread(room: GameRoom, player_index: int):
         except: pass
 
 
-# ─────────────────────────────────────────
 #  ANA SUNUCU
-# ─────────────────────────────────────────
 
 class YahtzeeServer:
 
